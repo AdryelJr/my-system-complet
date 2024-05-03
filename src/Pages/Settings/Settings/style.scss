@@ -21,6 +21,11 @@
                     text-decoration: none;
                     color: var(--text-color-light);
                 }
+
+                .active {
+                    background-color: var(--active-color-light);
+                    box-shadow: 1px 1px 1px rgba(59, 59, 59, 0.363);
+                }
             }
         }
     }

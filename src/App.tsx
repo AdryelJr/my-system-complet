@@ -16,7 +16,7 @@ export function App() {
           <Route path="/" element={<Home />} />
           <Route path="/help" element={<Help />} />
           <Route path="/settings" element={<Settings />}>
-            <Route path="profile" element={<Profile />} />
+            <Route path="/settings" element={<Profile />} />
             <Route path="appearance" element={<Appearance />} />
           </Route>
         </Route>
