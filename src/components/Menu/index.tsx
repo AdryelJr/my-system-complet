@@ -17,6 +17,7 @@ export function Menu({ setActiveLink, isDarkMode }: any) {
         <div className={`container-menu ${isDarkMode ? 'dark-theme' : ''}`}>
             <div className='logo'>
                 <img src={imgLogo} alt="logo" />
+                <span>My System</span>
             </div>
             <div className='content-menu'>
                 <ul>

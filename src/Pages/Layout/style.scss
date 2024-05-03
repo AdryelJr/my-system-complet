@@ -5,12 +5,16 @@
     background-color: var(--background-color-light);
 
     .content-left {
+        position: fixed;
+        left: 0;
         background-color: var(--background-menu-light);
         width: 17vw;
         border-right: 1px solid var(--color-border-light);
     }
 
     .content-right {
+        position: absolute;
+        right: 0;
         width: 83vw;
 
         .div-border-cima {
@@ -28,7 +32,8 @@
         }
 
         .div-content {
-            padding: 2em;
+            overflow-y: hidden;
+            height: 93vh;
         }
     }
 }
