@@ -1,8 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 :root {
-    --text-color: #333;
-    --active-color: #eceaea;
+    --text-color-light: #4d4d4d;
+    --active-color-light: #d0d3de;
+    --color-border-light: #cacaca;
+    --background-color-light: #ffff;
+    --background-menu-light: #edeff3;
+
+    --text-color-dark: #b1b1b3;
+    --active-color-dark: #272938;
+    --color-border-dark: #2c2c3b;
+    --background-dark: #191a23;
+}
+
+.dark-mode {
+    --text-color-light: var( --text-color-dark);
+    --active-color-light: var(--active-color-dark);
+    --color-border-light: var(--color-border-dark);
+    --background-color-light: var(--background-dark);
+    --background-menu-light: var(--background-dark);
 }
 
 * {
@@ -11,4 +27,8 @@
     box-sizing: border-box;
     font-family: "Inter", sans-serif;
     color: var(--text-color);
+}
+
+body{
+    background-color: var(--background-color);
 }

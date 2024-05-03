@@ -3,6 +3,7 @@ import './styles/global.scss'
 import { Layout } from './Pages/Layout'
 import { Settings } from './Pages/Settings'
 import { Help } from './Pages/Help'
+import { Home } from './Pages/Home'
 
 export function App() {
 
@@ -10,6 +11,7 @@ export function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Home />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/help" element={<Help />} />
         </Route>

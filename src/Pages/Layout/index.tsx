@@ -1,14 +1,25 @@
-import './style.scss';
+import './style.scss'
 
 import { Outlet } from 'react-router-dom';
 import { Menu } from '../../components/Menu';
-import { useState } from 'react';
-import { Home } from '../Home';
+import { useEffect, useState } from 'react';
 
 export function Layout() {
     const [linkName, setLinkName] = useState('');
+    const [darkMode] = useState(() => {
+        const savedMode = localStorage.getItem('darkMode');
+        return savedMode ? JSON.parse(savedMode) : false;
+    });
+    
+    useEffect(() => {
+        localStorage.setItem('darkMode', JSON.stringify(darkMode));
+        if (darkMode) {
+            console.log('modo escuro ativado')
+        }
+    }, [darkMode]);
+    
     return (
-        <div className='container-layout'>
+        <div className={`container-layout ${darkMode ? 'dark-mode' : 'light-mode'}`}>
             <div className='content-left'>
                 <Menu setActiveLink={setLinkName} />
             </div>
@@ -17,7 +28,6 @@ export function Layout() {
                     <span>{linkName}</span>
                 </div>
                 <div className='div-content'>
-                    <Home />
                     <Outlet />
                 </div>
             </div>
