@@ -1,0 +1,59 @@
+.container-formProfile {
+    width: 80%;
+    margin: 2em 0;
+
+    form {
+        width: 100%;
+
+        .div-displayName,
+        .div-email {
+            border-radius: 10px;
+            border: 1px solid var(--color-border-light);
+            padding: 1.5em;
+            margin-bottom: 2em;
+
+            h1 {
+                font-size: 22px;
+                margin-bottom: .4em;
+            }
+
+            p {
+                font-size: 14px;
+                margin-bottom: 2em;
+            }
+
+            h2 {
+                font-size: 16px;
+                margin-bottom: .6em;
+            }
+
+            input {
+                padding: 1em;
+                border-radius: 5px;
+                border: 1px solid var(--color-border-light);
+                background-color: var(--background-color-light);
+                width: 96%;
+                margin-left: 12px;
+            }
+        }
+
+        .div-email {
+            input:focus {
+                outline: none;
+            }
+        }
+
+        .div-displayName {
+            input::placeholder {
+                color: var(--text-color-light);
+                font-weight: 300;
+            }
+        }
+
+        .div-button {
+            button {
+                background-color: red;
+            }
+        }
+    }
+}

@@ -2,7 +2,7 @@
     display: flex;
 
     .content-settings {
-        padding: 4em 4em;
+        padding: 2.5em 4em;
         display: flex;
         width: 21vw;
 
@@ -10,12 +10,12 @@
             list-style: none;
 
             li {
-                margin-bottom: 1.1em;
+                margin-bottom: 1.5em;
                 width: 15vw;
                 
                 a {
                     padding: .8em 8em .8em 2em;
-                    border-radius: 5px;
+                    border-radius: 4px;
                     font-size: 13px;
                     font-weight: 600;
                     text-decoration: none;
@@ -32,6 +32,6 @@
 
     .div-content{
         width: 60vw;
-        border-left: 1px solid var( --color-border-light);
+        // border-left: 1px solid var( --color-border-light);
     }
 }

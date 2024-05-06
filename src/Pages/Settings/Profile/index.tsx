@@ -1,7 +1,10 @@
+import './style.scss';
+import { FormProfile } from "../../../components/Forms/FormProfile"
+
 export function Profile() {
     return (
-        <div>
-            <h1>Profile</h1>
+        <div className="container-profile">
+            <FormProfile />
         </div>
     )
 }
