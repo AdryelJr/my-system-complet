@@ -2,9 +2,13 @@
     display: flex;
 
     .content-settings {
+<<<<<<< Updated upstream
         padding: 2.5em 4em;
+=======
+        padding: 3em 3.2em;
+>>>>>>> Stashed changes
         display: flex;
-        width: 21vw;
+        width: 20vw;
 
         ul {
             list-style: none;
@@ -14,8 +18,13 @@
                 width: 15vw;
                 
                 a {
+<<<<<<< Updated upstream
                     padding: .8em 8em .8em 2em;
                     border-radius: 4px;
+=======
+                    padding: .8em 9em .8em 2em;
+                    border-radius: 5px;
+>>>>>>> Stashed changes
                     font-size: 13px;
                     font-weight: 600;
                     text-decoration: none;

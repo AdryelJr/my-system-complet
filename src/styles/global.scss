@@ -2,11 +2,12 @@
 
 :root {
     --text-color-light: #4d4d4d;
-    --active-color-light: #d0d3de;
+    --active-color-light: #d7d9e58a;
     --color-border-light: #cacaca;
     --background-color-light: #ffff;
-    --background-menu-light: #edeff3;
+    --background-menu-light: #eeeff3;
 
+<<<<<<< Updated upstream
     --text-color-dark: #b1b1b3;
     --active-color-dark: #272938;
     --color-border-dark: #2c2c3b;
@@ -14,6 +15,12 @@
 
     --background-button: #505bb6;
     --background-button-hover: #505ab694;
+=======
+    --text-color-dark: #cfcfcf;
+    --active-color-dark: #2f3034;
+    --color-border-dark: #353639;
+    --background-dark: #202125;
+>>>>>>> Stashed changes
 }
 
 .dark-mode {
