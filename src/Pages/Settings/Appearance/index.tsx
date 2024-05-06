@@ -1,4 +1,4 @@
-import { ButtonToggleTheme } from "../../../components/ButtonToggleTheme";
+import { ButtonToggleTheme } from "../../../components/Buttons/ButtonToggleTheme";
 
 export function Appearance() {
     return (

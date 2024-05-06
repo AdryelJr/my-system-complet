@@ -1,8 +1,10 @@
 import './style.scss';
 import imgLogo from '../../assets/logo.png';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 
 export function Menu({ setActiveLink, isDarkMode }: any) {
+    const { user } = useAuth();
     const location = useLocation();
 
     const isActive = (path: string, name: string) => {
@@ -41,7 +43,7 @@ export function Menu({ setActiveLink, isDarkMode }: any) {
                 </div>
                 <div className='div-perfil'>
                     <img width={40} src={imgLogo} alt="foto de perfil" />
-                    <span>adryeljunio2020@gmail.com</span>
+                    <span>{user?.email}</span>
                 </div>
             </div>
         </div>

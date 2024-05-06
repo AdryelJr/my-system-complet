@@ -6,21 +6,27 @@ import { Help } from './Pages/Help'
 import { Home } from './Pages/Home'
 import { Profile } from './Pages/Settings/Profile'
 import { Appearance } from './Pages/Settings/Appearance'
+import { Login } from './Pages/Auth/Login'
+import { AuthContextProvider } from './contexts/userAuth'
 
 export function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/help" element={<Help />} />
-          <Route path="/settings" element={<Settings />}>
-            <Route path="/settings" element={<Profile />} />
-            <Route path="appearance" element={<Appearance />} />
+      <AuthContextProvider>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/help" element={<Help />} />
+            <Route path="/settings" element={<Settings />}>
+              <Route path="/settings" element={<Profile />} />
+              <Route path="appearance" element={<Appearance />} />
+            </Route>
           </Route>
-        </Route>
-      </Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/*" element={<Layout />} />
+        </Routes>
+      </AuthContextProvider>
     </BrowserRouter>
   )
 }
