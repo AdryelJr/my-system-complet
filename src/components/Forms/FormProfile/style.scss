@@ -51,8 +51,20 @@
         }
 
         .div-button {
+            text-align: end;
+
             button {
-                background-color: red;
+                padding: 1em 2em;
+                background-color: var(--background-button);
+                cursor: pointer;
+                transition: all .1s ease-in-out;
+                border: none;
+                border-radius: 6px;
+                color: var(--text-color-button);
+
+                &:hover {
+                    background-color: var(--background-button-hover);
+                }
             }
         }
     }

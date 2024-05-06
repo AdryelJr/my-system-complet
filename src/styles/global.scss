@@ -7,28 +7,24 @@
     --background-color-light: #ffff;
     --background-menu-light: #eeeff3;
 
-<<<<<<< Updated upstream
     --text-color-dark: #b1b1b3;
     --active-color-dark: #272938;
     --color-border-dark: #2c2c3b;
     --background-dark: #191a23;
 
     --background-button: #505bb6;
+    --text-color-button: #ffffff;
     --background-button-hover: #505ab694;
-=======
-    --text-color-dark: #cfcfcf;
-    --active-color-dark: #2f3034;
-    --color-border-dark: #353639;
-    --background-dark: #202125;
->>>>>>> Stashed changes
+
 }
 
 .dark-mode {
-    --text-color-light: var( --text-color-dark);
+    --text-color-light: var(--text-color-dark);
     --active-color-light: var(--active-color-dark);
     --color-border-light: var(--color-border-dark);
     --background-color-light: var(--background-dark);
     --background-menu-light: var(--background-dark);
+    --text-color-button: #dbdbdb;
 }
 
 * {
@@ -39,6 +35,6 @@
     color: var(--text-color);
 }
 
-body{
+body {
     background-color: var(--background-color);
 }
