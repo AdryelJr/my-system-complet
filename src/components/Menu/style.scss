@@ -113,7 +113,7 @@
 @media(width <=999px) {
     .container-menu {
         position: relative;
-        left: -20em;
+        left: -38em;
         width: 60vw;
         position: fixed;
         top: 0;
@@ -129,5 +129,8 @@
                 font-size: 12px;
             }
         }
+    }
+    .content-footer-menu{
+        bottom: 3em !important;
     }
 }

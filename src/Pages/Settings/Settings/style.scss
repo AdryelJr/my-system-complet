@@ -32,6 +32,19 @@
 
     .div-content {
         width: 60vw;
-        // border-left: 1px solid var( --color-border-light);
+    }
+}
+
+@media(width <=999px) {
+    .content-settings {
+        padding: 2.5em 0 !important;
+        width: 25vw !important;
+        margin-left: -0em;
+
+        ul {
+            li {
+                width: 13em !important;
+            }
+        }
     }
 }
