@@ -54,16 +54,13 @@
         bottom: 0;
 
         .div-link {
-            width: 17vw;
-            display: flex;
-            justify-content: center;
 
             a {
                 color: var(--text-color-light);
                 text-decoration: none;
                 padding: 1em 1.5em;
                 margin-bottom: 20px;
-                width: 17vw;
+                width: 80%;
                 height: 6vh;
                 align-items: center;
                 border-radius: 10px;
@@ -108,21 +105,29 @@
 
 .hambAtivo {
     position: absolute;
-    left: 13.5em;
+    left: 11.5em;
     z-index: 1;
-    top: 1em;
+    top: .5em;
 }
 
 @media(width <=999px) {
     .container-menu {
         position: relative;
         left: -20em;
-        width: 30vw;
+        width: 60vw;
         position: fixed;
         top: 0;
     }
 
     .hamb {
         display: block;
+    }
+
+    .content-footer-menu {
+        .div-perfil {
+            span {
+                font-size: 12px;
+            }
+        }
     }
 }
