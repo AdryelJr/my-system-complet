@@ -30,11 +30,9 @@ export function Layout() {
 
     return (
         <div className='container-layout'>
-            <div className='content-left'>
-                <Hamb clickHamb={clickHamb} onClick={onclickHamb} />
-                <Menu clickHamb={clickHamb} setActiveLink={setLinkName} />
-            </div>
-            <div className='content-right'>
+            <Menu clickHamb={clickHamb} setActiveLink={setLinkName} />
+            <Hamb clickHamb={clickHamb} onClick={onclickHamb} />
+            <div className='content-layout'>
                 <div className='div-border-cima'>
                     <span>{linkName}</span>
                 </div>
