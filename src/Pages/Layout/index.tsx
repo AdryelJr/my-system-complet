@@ -1,7 +1,7 @@
 import './style.scss'
 
 import { Outlet, useNavigate } from 'react-router-dom';
-import { Menu } from '../../components/Menu';
+import { Hamb, Menu } from '../../components/Menu';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 
@@ -15,7 +15,7 @@ export function Layout() {
             navigate('/login');
         }
     }, [user])
-    
+
     useEffect(() => {
         const storageDarkMode = localStorage.getItem('darkMode');
         if (storageDarkMode) {
@@ -23,11 +23,16 @@ export function Layout() {
         }
     }, [])
 
+    const [clickHamb, setClickHamb] = useState<any>(false);
+    function onclickHamb() {
+        setClickHamb(!clickHamb);
+    }
 
     return (
         <div className='container-layout'>
             <div className='content-left'>
-                <Menu setActiveLink={setLinkName} />
+                <Hamb clickHamb={clickHamb} onClick={onclickHamb} />
+                <Menu clickHamb={clickHamb} setActiveLink={setLinkName} />
             </div>
             <div className='content-right'>
                 <div className='div-border-cima'>

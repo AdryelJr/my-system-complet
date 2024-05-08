@@ -1,39 +1,23 @@
 .container-layout {
-    color: var(--text-color-light);
-    height: 100vh;
     display: flex;
-    background-color: var(--background-color-light);
+    height: 100vh;
 
     .content-left {
-        position: fixed;
-        left: 0;
-        background-color: var(--background-menu-light);
-        width: 17vw;
-        border-right: 1px solid var(--color-border-light);
+        width: 19vw;
     }
 
     .content-right {
-        position: absolute;
-        right: 0;
+        background-color: var(--background-color-light);
         width: 81vw;
+    }
+}
 
-        .div-border-cima {
-            height: 7vh;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid var(--color-border-light);
+@media(width <=999px) {
+    .container-layout {
 
-            span {
-                color: var(--text-color-light);
-                margin-left: 30px;
-                text-transform: uppercase;
-                font-size: 14px;
-            }
-        }
-
-        .div-content {
-            overflow-y: hidden;
-            height: 93vh;
+        .content-left {
+            width: 8vw;
+            height: 12vh;
         }
     }
 }
