@@ -1,6 +1,7 @@
 .container-layout {
     display: flex;
     height: 100vh;
+    background-color: var(--background-color-light);
 
     .content-left {
         width: 19vw;
