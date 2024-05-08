@@ -33,9 +33,9 @@ export function FormProfile() {
         <div className="container-formProfile">
             <form onSubmit={atualizarNome}>
                 <div className='div-displayName'>
-                    <h1>Name</h1>
+                    <h1>Nome</h1>
                     <p>Esse será o nome exibido publicamente.</p>
-                    <h2>Name</h2>
+                    <h2>Nome</h2>
                     <input
                         type="text"
                         placeholder={user?.name}

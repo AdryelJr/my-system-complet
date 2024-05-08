@@ -25,7 +25,8 @@
     }
 
     .div-content {
-        background-color: rgb(5, 49, 5);
+        padding: 0 1em;
+        width: 100%;
     }
 }
 
@@ -57,6 +58,14 @@
                     padding: .6em 1em;
                 }
             }
+        }
+    }
+}
+
+@media(width <=490px) {
+    .container-settings {
+        .content-settings {
+            width: 25vw;
         }
     }
 }
