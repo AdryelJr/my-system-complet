@@ -38,12 +38,16 @@
 @media(width <=999px) {
     .content-settings {
         padding: 2.5em 0 !important;
-        width: 25vw !important;
+        width: 50vw !important;
         margin-left: -0em;
 
         ul {
             li {
-                width: 13em !important;
+                width: 9em !important;
+
+                a {
+                    padding: .6em 3em !important;
+                }
             }
         }
     }

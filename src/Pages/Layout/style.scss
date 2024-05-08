@@ -41,3 +41,15 @@
         }
     }
 }
+
+@media(width <=450px) {
+    
+        .content-right {
+            
+            .div-content {
+                margin-left: -2.5em !important;
+                overflow-y: auto;
+                width: 100vw;
+            }
+        }
+}
