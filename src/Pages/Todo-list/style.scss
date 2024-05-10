@@ -56,7 +56,9 @@
             justify-content: center;
 
             input {
-                width: 80% !important;
+                width: 100% !important;
+                height: 50px;
+                font-size: 15px;
             }
 
             .input2 {
@@ -64,8 +66,9 @@
             }
 
             button {
+                height: 50px;
                 margin-top: 10px;
-                width: 80% !important;
+                width: 100% !important;
             }
         }
     }
