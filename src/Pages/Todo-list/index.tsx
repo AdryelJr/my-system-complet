@@ -1,20 +1,39 @@
 import './style.scss';
 import binSvg from '../../assets/svg/bin.svg';
+// import { useAuth } from '../../hooks/useAuth';
+import { FormEvent, useState } from 'react';
 
 export function TodoList() {
+    // const { user } = useAuth();
+    const [inputItem, setInputItem] = useState('');
+    const [inputPreco, setInputPreco] = useState('');
+
+    function createNewItem(event: FormEvent) {
+        event?.preventDefault();
+        const newItem = {
+            Item: inputItem,
+            Preço: inputPreco
+        }
+        console.log(newItem);
+        setInputItem('');
+        setInputPreco('');
+    }
+
     return (
         <div className="container-todolist">
             <div className="content-todolist">
-                <form>
+                <form onSubmit={createNewItem}>
                     <input
                         className='input1'
                         type="text"
                         placeholder='Item'
+                        onChange={(event) => setInputItem(event.target.value)}
                     />
                     <input
                         className='input2'
-                        type="text"
+                        type="number"
                         placeholder='R$'
+                        onChange={(event) => setInputPreco(event.target.value)}
                     />
                     <button>Adicionar</button>
                 </form>

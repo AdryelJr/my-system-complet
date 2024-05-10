@@ -7,7 +7,6 @@ import { useAuth } from '../../hooks/useAuth';
 export function Menu({ setActiveLink, isDarkMode, clickHamb }: any) {
     const { user } = useAuth();
     const location = useLocation();
-    console.log(user?.avatar)
 
     const isActive = (path: string, name: string) => {
         if (location.pathname === path) {
