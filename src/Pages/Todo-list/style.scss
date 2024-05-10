@@ -1,0 +1,39 @@
+.container-todolist {
+    display: flex;
+
+    .content-todolist {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+
+        form {
+            padding: 2em 0;
+            text-align: center;
+
+            input {
+                width: 70%;
+                padding: 1em;
+                border-radius: 6px;
+                border: 1px solid var(--color-border-light);
+                background-color: var(--background-menu-light);
+            }
+
+            button {
+                margin-left: 1em;
+                background-color: var(--background-button);
+                color: var(--text-color-button);
+                padding: 1em;
+                cursor: pointer;
+                transition: all .2s ease-in-out;
+                border: none;
+                box-shadow: 1px 1px 4px #333;
+                border-radius: 6px;
+
+                &:hover {
+                    background-color: var(--background-button-hover);
+                }
+            }
+        }
+    }
+}

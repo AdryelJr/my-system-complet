@@ -8,6 +8,7 @@ import { Profile } from './Pages/Settings/Profile'
 import { Appearance } from './Pages/Settings/Appearance'
 import { Login } from './Pages/Auth/Login'
 import { AuthContextProvider } from './contexts/userAuth'
+import { TodoList } from './Pages/Todo-list'
 
 export function App() {
 
@@ -18,6 +19,7 @@ export function App() {
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/help" element={<Help />} />
+            <Route path="/tolist" element={<TodoList />} />
             <Route path="/settings" element={<Settings />}>
               <Route path="/settings" element={<Profile />} />
               <Route path="appearance" element={<Appearance />} />
