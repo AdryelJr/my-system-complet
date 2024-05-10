@@ -6,7 +6,16 @@ export function TodoList() {
         <div className="container-todolist">
             <div className="content-todolist">
                 <form>
-                    <input type="text" />
+                    <input
+                        className='input1'
+                        type="text"
+                        placeholder='Item'
+                    />
+                    <input
+                        className='input2'
+                        type="text"
+                        placeholder='R$'
+                    />
                     <button>Adicionar</button>
                 </form>
 
@@ -21,7 +30,7 @@ export function TodoList() {
                         </li>
                     </ul>
                 </div>
-                
+
             </div>
         </div>
     )
