@@ -12,7 +12,7 @@
             a {
                 border-radius: 4px;
                 font-size: 13px;
-                padding: .8em 2em;
+                padding: .8em 1.8em;
                 display: flex;
                 width: 85%;
                 text-decoration: none;
@@ -36,6 +36,7 @@
 
         .content-settings {
             width: 20vw;
+
             li {
                 a {
                     width: 90%;
@@ -51,21 +52,14 @@
         padding: 1em;
 
         .content-settings {
-            width: 20vw;
+            width: 25vw;
+
             li {
                 a {
-                    width: 90%;
+                    width: 100%;
                     padding: .6em 1em;
                 }
             }
-        }
-    }
-}
-
-@media(width <=490px) {
-    .container-settings {
-        .content-settings {
-            width: 25vw;
         }
     }
 }
