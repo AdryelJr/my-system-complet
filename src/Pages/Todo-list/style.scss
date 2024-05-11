@@ -45,6 +45,70 @@
                 }
             }
         }
+
+        .content-items {
+            padding: 1em;
+            margin: auto;
+            width: 70%;
+
+            .div-title {
+                display: flex;
+                align-items: center;
+                margin-bottom: 2em;
+
+                span {
+                    margin-left: 10px;
+                }
+            }
+
+            ul {
+                max-height: 70vh;
+                overflow-y: auto;
+
+                li {
+                    width: 90%;
+                    padding: .2em 1.5em;
+                    border-radius: 4px;
+                    margin-bottom: 10px;
+                    list-style: none;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    &:nth-child(odd) {
+                        background-color: var(--active-color-light);
+                    }
+
+                    &:nth-child(even) {
+                        background-color: var(--background-menu-light);
+                    }
+
+                    button {
+                        background-color: transparent;
+                        border: none;
+                        margin-left: 10px;
+                        cursor: pointer;
+
+                        img {
+                            width: 30px;
+                        }
+                    }
+                }
+
+                &::-webkit-scrollbar {
+                    width: 5px;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background-color: var(--color-border-light);
+                    border-radius: 4px;
+                }
+
+                &::-webkit-scrollbar-thumb:hover {
+                    background-color: #747474;
+                }
+            }
+        }
     }
 }
 
@@ -68,6 +132,14 @@
             button {
                 height: 50px;
                 margin-top: 10px;
+                width: 100% !important;
+            }
+        }
+
+        .content-items {
+            width: 100% !important;
+
+            li {
                 width: 100% !important;
             }
         }
