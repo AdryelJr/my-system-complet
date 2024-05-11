@@ -1,8 +1,10 @@
 import './style.scss';
 import binSvg from '../../assets/svg/bin.svg';
+import editSvg from '../../assets/svg/edit.svg';
+import checkedSvg from '../../assets/svg/checked.svg';
 import { useAuth } from '../../hooks/useAuth';
 import { FormEvent, useEffect, useState } from 'react';
-import { onValue, push, ref, remove, set } from 'firebase/database';
+import { onValue, push, ref, remove, set, update } from 'firebase/database';
 import { database } from '../../services/firebase';
 
 export function TodoList() {
@@ -12,6 +14,7 @@ export function TodoList() {
     const newItem: any = {
         Item: inputItem,
         Preço: inputPreco,
+        Conferido: false
     }
 
     const [precoFinal, setPrecoFinal] = useState('');
@@ -51,6 +54,18 @@ export function TodoList() {
         }
     }
 
+    async function checkedItemBanco(itemId: string, checked: boolean) {
+        try {
+            const itemRef = ref(database, `users/${user?.id}/TodoList/${itemId}`);
+            await update(itemRef, {
+                Conferido: checked
+            })
+        } catch (error) {
+            console.error('Erro ao checar item:', error);
+        }
+    }
+
+
 
     const handleDeleteItem = async (itemId: string) => {
         try {
@@ -88,11 +103,19 @@ export function TodoList() {
                     <ul>
                         {listaItensBancoDados.map((item: any, index: any) => {
                             return (
-                                <li key={index}>
+                                <li key={index} className={item.Conferido ? 'strikethrough' : ''}>
                                     {item.Item} - {parseFloat(item.Preço).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-                                    <button onClick={() => handleDeleteItem(item.id)}>
-                                        <img src={binSvg} alt="lixeira" />
+                                    <button>
+                                        <img src={editSvg} alt="edit" />
                                     </button>
+                                    <div className='div-actionsItem'>
+                                        <button onClick={() => checkedItemBanco(item.id, !item.Conferido)}>
+                                            <img src={checkedSvg} alt="checked" />
+                                        </button>
+                                        <button onClick={() => handleDeleteItem(item.id)}>
+                                            <img src={binSvg} alt="lixeira" />
+                                        </button>
+                                    </div>
                                 </li>
                             );
                         })}

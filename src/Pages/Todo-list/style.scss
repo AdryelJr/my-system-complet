@@ -93,6 +93,13 @@
                             width: 30px;
                         }
                     }
+
+                    .div-actionsItem {
+                        width: 30%;
+                        display: flex;
+                        justify-content: space-between;
+
+                    }
                 }
 
                 &::-webkit-scrollbar {
@@ -107,6 +114,11 @@
                 &::-webkit-scrollbar-thumb:hover {
                     background-color: #747474;
                 }
+            }
+
+            .strikethrough {
+                text-decoration: line-through;
+                opacity: 0.6;
             }
         }
     }
