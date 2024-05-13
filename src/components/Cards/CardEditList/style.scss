@@ -1,0 +1,70 @@
+.container-cardEditList {
+    display: none;
+    transition: all 0.2s ease-in-out;
+    position: absolute;
+    top: 3em;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--active-color-light);
+    border: 1px solid var(--color-border-light);
+    padding: 1em 1em 2em 1em;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 50vw;
+
+    .div-title {
+        button {
+            cursor: pointer;
+            position: absolute;
+            right: .2em;
+            top: .2em;
+            font-size: 35px;
+            background-color: transparent;
+            border: none;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    .content-cardEditList {
+        form {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+
+            span {
+                margin: 0 0 .5em .5em;
+                font-weight: 500;
+            }
+
+            input {
+                margin-bottom: 1em;
+                width: 94%;
+                padding: 1em 1.5em;
+            }
+
+            .input-name::placeholder {
+                font-weight: bold;
+            }
+
+            button {
+                width: 93% !important;
+            }
+        }
+    }
+}
+
+.cardEdit {
+    display: block;
+}
+
+@media(width <=600px) {
+    .container-cardEditList {
+        top: -10em;
+        width: 80vw;
+    }
+}

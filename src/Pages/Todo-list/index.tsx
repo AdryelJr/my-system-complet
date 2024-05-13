@@ -6,6 +6,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { FormEvent, useEffect, useState } from 'react';
 import { onValue, push, ref, remove, set, update } from 'firebase/database';
 import { database } from '../../services/firebase';
+import { CardEditList } from '../../components/Cards/CardEditList';
 
 export function TodoList() {
     const { user } = useAuth();
@@ -75,6 +76,16 @@ export function TodoList() {
             console.error('Erro ao deletar item:', error);
         }
     };
+    const [cardEdit, setCardEdit] = useState(Boolean);
+    const [cardPlaceholderName, setCardPlaceholderName] = useState("");
+    const [cardPlaceholderPrice, setCardPlaceholderPrice] = useState('');
+    const [itemId, setItemId] = useState('');
+    function handleEdit(Item: string, Preço: string, Id: string) {
+        setCardEdit(true);
+        setCardPlaceholderName(Item);
+        setCardPlaceholderPrice(Preço);
+        setItemId(Id);
+    }
 
     return (
         <div className="container-todolist">
@@ -105,7 +116,7 @@ export function TodoList() {
                             return (
                                 <li key={index} className={item.Conferido ? 'strikethrough' : ''}>
                                     {item.Item} - {parseFloat(item.Preço).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-                                    <button>
+                                    <button onClick={() => handleEdit(item.Item, item.Preço, item.id)}>
                                         <img src={editSvg} alt="edit" />
                                     </button>
                                     <div className='div-actionsItem'>
@@ -120,8 +131,15 @@ export function TodoList() {
                             );
                         })}
                     </ul>
-                </div>
 
+                    <CardEditList
+                        cardPlaceholderName={cardPlaceholderName}
+                        cardPlaceholderPrice={cardPlaceholderPrice}
+                        cardEdit={cardEdit}
+                        setCardEdit={setCardEdit}
+                        setId={itemId}
+                    />
+                </div>
             </div>
         </div>
     )

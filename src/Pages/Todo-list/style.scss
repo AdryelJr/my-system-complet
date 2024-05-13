@@ -47,6 +47,8 @@
         }
 
         .content-items {
+            transition: all .2s ease-in-out;
+            position: relative;
             padding: 1em;
             margin: auto;
             width: 70%;
@@ -66,7 +68,8 @@
                 overflow-y: auto;
 
                 li {
-                    width: 90%;
+                    position: relative;
+                    width: 100%;
                     padding: .2em 1.5em;
                     border-radius: 4px;
                     margin-bottom: 5px;
@@ -74,6 +77,8 @@
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
+
+
 
                     &:nth-child(odd) {
                         background-color: var(--active-color-light);

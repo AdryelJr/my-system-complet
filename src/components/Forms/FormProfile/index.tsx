@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { useAuth } from '../../../hooks/useAuth'
 import './style.scss'
-import { Cads } from '../../Cards';
+import { Cads } from '../../Cards/CardSucess';
 
 export function FormProfile() {
     const { user, updateName } = useAuth();
