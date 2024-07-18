@@ -9,6 +9,7 @@ import { Appearance } from './Pages/Settings/Appearance'
 import { Login } from './Pages/Auth/Login'
 import { AuthContextProvider } from './contexts/userAuth'
 import { TodoList } from './Pages/Todo-list'
+import { MiniBank } from './Pages/MiniBank'
 
 export function App() {
 
@@ -20,6 +21,7 @@ export function App() {
             <Route path="/" element={<Home />} />
             <Route path="/help" element={<Help />} />
             <Route path="/tolist" element={<TodoList />} />
+            <Route path="/minibank" element={<MiniBank />} />
             <Route path="/settings" element={<Settings />}>
               <Route path="/settings" element={<Profile />} />
               <Route path="appearance" element={<Appearance />} />
