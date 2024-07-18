@@ -1,40 +1,35 @@
 import './style.scss';
 import coinsSvg from '../../assets/svg/coins.svg';
 import { useEffect, useState, useContext } from 'react';
-import { getDatabase, ref, get, update } from 'firebase/database';
+import { getDatabase, ref, onValue, update, get } from 'firebase/database';
 import { AuthContext } from '../../contexts/userAuth';
 
 export function MiniBank() {
     const { user } = useContext(AuthContext);
     const [coins, setCoins] = useState<number | null>(null);
-    const [xp, setXp] = useState<number>(0);
-    const [level, setLevel] = useState<number>(1);
-    const [isLoaded, setIsLoaded] = useState(false);
     const [recipientEmail, setRecipientEmail] = useState<string>('');
     const [transferAmount, setTransferAmount] = useState<number>(0);
     const [message, setMessage] = useState<string>('');
 
     useEffect(() => {
-        const fetchUserData = async () => {
-            if (user) {
-                const db = getDatabase();
-                const userRef = ref(db, 'users/' + user.id);
-                const snapshot = await get(userRef);
+        if (user) {
+            const db = getDatabase();
+            const userRef = ref(db, 'users/' + user.id);
+
+            // Função para atualizar o estado das moedas
+            const updateCoins = (snapshot: any) => {
                 if (snapshot.exists()) {
                     const userData = snapshot.val();
                     setCoins(userData.userInfoGame.coins);
-                    const xp = userData.userInfoGame.xp || 0; // Define XP como 0 se não existir
-                    setXp(xp);
-                    setLevel(calculateLevel(xp));
-                } else {
-                    console.log("No data available");
                 }
-            }
-        };
-        fetchUserData();
+            };
 
-        // Adiciona um pequeno delay para a transição suave
-        setTimeout(() => setIsLoaded(true), 100);
+            // Escuta as mudanças em tempo real
+            const unsubscribe = onValue(userRef, updateCoins);
+
+            // Limpeza
+            return () => unsubscribe();
+        }
     }, [user]);
 
     const handleTransfer = async () => {
@@ -73,54 +68,22 @@ export function MiniBank() {
             updates['/users/' + recipientId + '/userInfoGame/coins'] = recipientCoins + transferAmount;
 
             await update(ref(db), updates);
-            setCoins(coins! - transferAmount);
             setMessage('Transferência realizada com sucesso');
         } else {
             console.log("No data available");
         }
     };
 
-    const calculateLevel = (xp: number): number => {
-        let level = 1;
-        let xpForNextLevel = 100;
-        while (xp >= xpForNextLevel) {
-            xp -= xpForNextLevel;
-            level++;
-            xpForNextLevel = xpForNextLevel + 50 * (level - 1);
-        }
-        return level;
-    };
-
-    const xpForNextLevel = (level: number): number => {
-        return 100 + 50 * (level - 1);
-    };
-
-    const getLevelProgress = (xp: number, level: number): number => {
-        const currentLevelXp = 100 * (level - 1) + 50 * (level - 2) * (level - 1) / 2;
-        const nextLevelXp = currentLevelXp + xpForNextLevel(level);
-        return ((xp - currentLevelXp) / (nextLevelXp - currentLevelXp)) * 100;
-    };
-
     return (
-        <div className={`container-miniBank ${isLoaded ? 'loaded' : ''}`}>
+        <div className={'container-miniBank'}>
             {coins !== null ? (
                 <>
                     <div className='content-miniBank'>
                         <div className='div-header-xp'>
-                            <div className='div-teste'>
-                                <div className='div-level'>
-                                    <p>Nível: {level}</p>
-                                </div>
-                                <div className='div-xp'>
-                                    <div className='xp-bar' style={{ width: `${getLevelProgress(xp, level)}%` }}></div>
-                                    <div className='xp-text'>{xp} XP</div>
-                                </div>
-                            </div>
                             <div className='div-coins'>
                                 <img src={coinsSvg} alt='Coins' />
                                 <p>Moedas: {coins}</p>
                             </div>
-
                         </div>
                     </div>
                     <div className='transaction-section'>
