@@ -4,8 +4,25 @@
 
     .content-miniBank {
         display: flex;
-        width: 95%;
-        justify-content: end;
+        // width: 95%;
+        align-items: center;
+        padding: 1em 3em;
+        justify-content: space-between;
+
+        .div-nav {
+            display: flex;
+            width: 50%;
+
+            ul {
+                background-color: green;
+                width: 100%;
+                display: flex;
+
+                a {
+                    background-color: red;
+                }
+            }
+        }
 
         .div-coins {
             display: flex;
