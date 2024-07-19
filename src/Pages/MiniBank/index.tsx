@@ -25,13 +25,13 @@ export function MiniBank() {
         }
     }, [user]);
 
-    const location = useLocation();
 
-  const isActive = (path: string) => {
-    const locationSegments = location.pathname.split('/');
-    const pathSegments = path.split('/');
-    return locationSegments[locationSegments.length - 1] === pathSegments[pathSegments.length - 1];
-  }
+    const location = useLocation();
+    const isActive = (path: string) => {
+        const locationSegments = location.pathname.split('/');
+        const pathSegments = path.split('/');
+        return locationSegments[locationSegments.length - 1] === pathSegments[pathSegments.length - 1];
+    }
 
     return (
         <div className={'container-miniBank'}>
@@ -41,10 +41,13 @@ export function MiniBank() {
                         <div className='div-nav'>
                             <ul>
                                 <li>
-                                    <Link className={isActive('/minibank/loja') ? 'active' : ''} to={'/minibank/loja'}>Loja</Link>
+                                    <Link className={isActive('/minibank') ? 'active' : ''} to={''}>Loja</Link>
                                 </li>
                                 <li>
-                                    <Link className={isActive('/minibank/transacoes') ? 'active' : ''} to={'/minibank/transacoes'}>Transações</Link>
+                                    <Link className={isActive('jogos') ? 'active' : ''} to={'jogos'}>Jogos</Link>
+                                </li>
+                                <li>
+                                    <Link className={isActive('transacoes') ? 'active' : ''} to={'transacoes'}>Transações</Link>
                                 </li>
                             </ul>
                         </div>

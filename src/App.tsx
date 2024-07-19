@@ -24,7 +24,7 @@ export function App() {
             <Route path="/help" element={<Help />} />
             <Route path="/tolist" element={<TodoList />} />
             <Route path="/minibank" element={<MiniBank />}>
-              <Route path="loja" element={<LojaPage />} />
+              <Route path="/minibank" element={<LojaPage />} />
               <Route path="transacoes" element={<TransacoesPage />} />
             </Route>
             <Route path="/settings" element={<Settings />}>
