@@ -1,10 +1,9 @@
-// src/components/indexMundo3D.tsx
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js';
 import io from 'socket.io-client';
 import grassTextureUrl from './texturas/pisoMadeira2.jpg';
-import paredeTextura from './texturas/parede.jpg'; 
+import paredeTextura from './texturas/parede.jpg';
 
 interface WallProps {
   width: number;
@@ -43,7 +42,7 @@ export function Mundo3D() {
     zMax: 50
   };
 
-  const socket = useRef(io('http://localhost:4000')).current;
+  const socket = useRef(io('https://servidor-my-complete-system.vercel.app/')).current;
 
   function createWall({ width, height, depth, x, y, z }: WallProps) {
     const wallGeometry = new THREE.BoxGeometry(width, height, depth);
@@ -92,7 +91,8 @@ export function Mundo3D() {
     return () => {
       socket.disconnect();
     };
-  }, []);
+  }, [isConnected]);
+
 
   useEffect(() => {
     if (!isConnected) return;
