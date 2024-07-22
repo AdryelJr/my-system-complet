@@ -150,7 +150,7 @@ export function Mundo3D() {
       window.addEventListener('keydown', handleKeyDown);
       window.addEventListener('keyup', handleKeyUp);
 
-      socketRef.current = io('http://localhost:3000'); // Conectando ao servidor
+      socketRef.current = io('https://servidor-my-system.vercel.app/'); // Conectando ao servidor
 
       socketRef.current.on('connect', () => {
         console.log('Conectado ao servidor:', socketRef.current?.id);
