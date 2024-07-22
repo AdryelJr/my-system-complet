@@ -56,7 +56,9 @@ export function MiniBank() {
                             <p>Moedas: {coins}</p>
                         </div>
                     </div>
-                    <Outlet />
+                    <main className='main-minibank'>
+                        <Outlet />
+                    </main>
                 </>
             ) : (
                 <p>Carregando...</p>

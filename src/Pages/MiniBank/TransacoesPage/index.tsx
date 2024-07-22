@@ -2,6 +2,8 @@ import { get, getDatabase, onValue, ref, update } from "firebase/database";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../contexts/userAuth";
 
+import './style.scss';
+
 export function TransacoesPage() {
     const { user } = useContext(AuthContext);
     const [coins, setCoins] = useState<number | null>(null);
@@ -67,23 +69,21 @@ export function TransacoesPage() {
         }
     };
     return (
-        <div>
-            <div className='transaction-section'>
-                <input
-                    type="email"
-                    placeholder="Email do destinatário"
-                    value={recipientEmail}
-                    onChange={(e) => setRecipientEmail(e.target.value)}
-                />
-                <input
-                    type="number"
-                    placeholder="Quantidade de moedas"
-                    value={transferAmount}
-                    onChange={(e) => setTransferAmount(Number(e.target.value))}
-                />
-                <button onClick={handleTransfer}>Transferir Moedas</button>
-                {message && <p>{message}</p>}
-            </div>
+        <div className="container-transacoesPage">
+            <input
+                type="email"
+                placeholder="Email do destinatário"
+                value={recipientEmail}
+                onChange={(e) => setRecipientEmail(e.target.value)}
+            />
+            <input
+                type="number"
+                placeholder="Quantidade de moedas"
+                value={transferAmount}
+                onChange={(e) => setTransferAmount(Number(e.target.value))}
+            />
+            <button onClick={handleTransfer}>Transferir Moedas</button>
+            {message && <p>{message}</p>}
         </div>
     )
 }

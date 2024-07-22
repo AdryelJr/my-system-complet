@@ -1,0 +1,33 @@
+.menuGame1 {
+    background-color: skyblue;
+    height: 72vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    color: #333;
+
+    button {
+        background: linear-gradient(45deg, orangered, rgb(243, 243, 3));
+        padding: .8em 2em;
+        font-size: 20px;
+        margin: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all .2s ease-in-out;
+        box-shadow: 3px 3px 4px rgb(92, 92, 92);
+
+        &:hover {
+            transform: translateY(-3px);
+            transition: all .5s ease-in-out;
+            background: linear-gradient(45deg, rgb(217, 59, 1), rgb(200, 200, 3));
+        }
+
+        &:active {
+            transform: translateY(1px);
+        }
+    }
+}

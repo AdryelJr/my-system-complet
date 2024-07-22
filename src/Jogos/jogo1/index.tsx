@@ -1,29 +1,14 @@
-// src/PrimeiroGame.tsx
+import { useState } from 'react';
 import './style.scss';
-import { Canvas } from '@react-three/fiber';
-import { MeshStandardMaterial, PlaneGeometry, AmbientLight, DirectionalLight } from 'three';
+import { Mundo3D } from './indexMundo3D';
+import { MenuGame1 } from './indexMenu';
 
 export function PrimeiroGame() {
+  const [inGame, setInGame] = useState(false);
 
   return (
     <div className='container-primeiroGame'>
-      <Canvas style={{ width: '1000px', height: '600px' }}>
-        {/* Luzes */}
-        <AmbientLight color="white" intensity={0.5} />
-        <DirectionalLight position={[10, 10, 10]} intensity={1} />
-
-        {/* Céu Azul */}
-        <mesh position={[0, 0, -1]}>
-          <planeGeometry args={[1000, 1000]} />
-          <meshBasicMaterial color="skyblue" side={2} />
-        </mesh>
-
-        {/* Grama Verde */}
-        <mesh position={[0, 0, 0]}>
-          <planeGeometry args={[1000, 1000]} />
-          <MeshStandardMaterial color="green" />
-        </mesh>
-      </Canvas>
+      {inGame ? <Mundo3D /> : <MenuGame1 onStart={() => setInGame(true)} />}
     </div>
   );
 }

@@ -1,0 +1,46 @@
+.container-transacoesPage {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    width: 400px;
+    margin-top: 4em;
+    transition: all 0.3s ease-in-out;
+
+    input {
+        border: none;
+        color: #fff;
+        padding: 1.5em 2em;
+        margin-bottom: 1.5em;
+        border: 1px solid #4e4e4e;
+        box-shadow: 2px 2px 4px #000;
+        border-radius: 8px;
+        background-color: transparent;
+    }
+
+    button {
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        background: linear-gradient(45deg, orangered, rgb(243, 243, 3));
+        padding: 1.5em;
+        color: #333333;
+        font-weight: bold;
+        border-radius: 8px;
+        border: none;
+        box-shadow: 2px 2px 4px #000;
+
+
+        &:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(45deg, rgba(212, 212, 7, 0.74), rgba(255, 68, 0, 0.603));
+        }
+
+        &:active {
+            transform: translateY(1px);
+        }
+    }
+
+    p {
+        margin-top: 1em;
+        color: rgb(255, 166, 0);
+    }
+}
