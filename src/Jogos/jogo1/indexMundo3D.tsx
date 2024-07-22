@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+import { io } from 'socket.io-client';
 import grassTextureUrl from './texturas/pisoMadeira2.jpg';
 import paredeTextura from './texturas/parede.jpg'; // Importando a textura da parede
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js';
@@ -13,7 +14,15 @@ interface WallProps {
   z: number;
 }
 
+interface Player {
+  id: string;
+  x: number;
+  y: number;
+  z: number;
+}
+
 export function Mundo3D() {
+  const [players, setPlayers] = useState<{ [id: string]: Player }>({});
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const controlsRef = useRef<PointerLockControls | null>(null);
   const keys = useRef<{ [key: string]: boolean }>({});
@@ -23,6 +32,7 @@ export function Mundo3D() {
   const maxJumps = 2; // Número máximo de pulos
   const jumps = useRef(0); // Contador de pulos realizados
   const isGrounded = useRef(false); // Verifica se o jogador está no chão
+  const socketRef = useRef<ReturnType<typeof io> | null>(null);
 
   const worldBounds = {
     xMin: -50,
@@ -140,6 +150,28 @@ export function Mundo3D() {
       window.addEventListener('keydown', handleKeyDown);
       window.addEventListener('keyup', handleKeyUp);
 
+      socketRef.current = io('http://localhost:3000'); // Conectando ao servidor
+
+      socketRef.current.on('connect', () => {
+        console.log('Conectado ao servidor:', socketRef.current?.id);
+      });
+
+      socketRef.current.on('newPlayer', (player: Player) => {
+        setPlayers((prevPlayers) => ({ ...prevPlayers, [player.id]: player }));
+      });
+
+      socketRef.current.on('move', (player: Player) => {
+        setPlayers((prevPlayers) => ({ ...prevPlayers, [player.id]: player }));
+      });
+
+      socketRef.current.on('playerDisconnected', (playerId: string) => {
+        setPlayers((prevPlayers) => {
+          const updatedPlayers = { ...prevPlayers };
+          delete updatedPlayers[playerId];
+          return updatedPlayers;
+        });
+      });
+
       function animate() {
         requestAnimationFrame(animate);
 
@@ -180,6 +212,11 @@ export function Mundo3D() {
             // Limite do mundo
             camera.position.x = Math.max(worldBounds.xMin, Math.min(camera.position.x, worldBounds.xMax));
             camera.position.z = Math.max(worldBounds.zMin, Math.min(camera.position.z, worldBounds.zMax));
+
+            // Emitir a posição atual do jogador para o servidor
+            if (socketRef.current) {
+              socketRef.current.emit('move', { x: camera.position.x, y: camera.position.y, z: camera.position.z });
+            }
           }
         }
 
@@ -191,10 +228,21 @@ export function Mundo3D() {
       return () => {
         window.removeEventListener('keydown', handleKeyDown);
         window.removeEventListener('keyup', handleKeyUp);
+        if (socketRef.current) {
+          socketRef.current.disconnect();
+        }
         renderer.dispose();
       };
     }
   }, []);
 
-  return <div id="mundo-3d"></div>;
+  return (
+    <div id="mundo-3d">
+      {Object.values(players).map((player) => (
+        <div key={player.id}>
+          Jogador {player.id} - Posição: {player.x}, {player.y}, {player.z}
+        </div>
+      ))}
+    </div>
+  );
 }
