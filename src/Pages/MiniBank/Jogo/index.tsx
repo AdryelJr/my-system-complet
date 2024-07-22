@@ -1,11 +1,11 @@
-import StickHeroGame from "../../../Jogos/jogo1";
+import { PrimeiroGame } from "../../../Jogos/jogo1";
 
 export function JogosPage() {
     return (
         <div>
             jogo teste
 
-            <StickHeroGame />
+            <PrimeiroGame />
         </div>
     )
 }
