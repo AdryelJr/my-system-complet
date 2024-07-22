@@ -1,8 +1,10 @@
-import { useEffect, useRef } from 'react';
+// src/components/indexMundo3D.tsx
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import grassTextureUrl from './texturas/pisoMadeira2.jpg';
-import paredeTextura from './texturas/parede.jpg'; // Importando a textura da parede
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js';
+import io from 'socket.io-client';
+import grassTextureUrl from './texturas/pisoMadeira2.jpg';
+import paredeTextura from './texturas/parede.jpg'; 
 
 interface WallProps {
   width: number;
@@ -13,16 +15,26 @@ interface WallProps {
   z: number;
 }
 
+interface Player {
+  id: string;
+  x: number;
+  y: number;
+  z: number;
+}
+
 export function Mundo3D() {
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const controlsRef = useRef<PointerLockControls | null>(null);
   const keys = useRef<{ [key: string]: boolean }>({});
-  const velocity = useRef(new THREE.Vector3(0, 0, 0)); // Para movimentação e física
+  const velocity = useRef(new THREE.Vector3(0, 0, 0));
   const gravity = 0.005;
   const jumpSpeed = 0.2;
-  const maxJumps = 2; // Número máximo de pulos
-  const jumps = useRef(0); // Contador de pulos realizados
-  const isGrounded = useRef(false); // Verifica se o jogador está no chão
+  const maxJumps = 2;
+  const jumps = useRef(0);
+  const isGrounded = useRef(false);
+
+  const [players, setPlayers] = useState<{ [key: string]: Player }>({});
+  const [isConnected, setIsConnected] = useState(false);
 
   const worldBounds = {
     xMin: -50,
@@ -31,35 +43,64 @@ export function Mundo3D() {
     zMax: 50
   };
 
+  const socket = useRef(io('http://localhost:4000')).current;
+
   function createWall({ width, height, depth, x, y, z }: WallProps) {
     const wallGeometry = new THREE.BoxGeometry(width, height, depth);
-
-    // Carregar a textura e criar o material
     const textureLoader = new THREE.TextureLoader();
     const wallTexture = textureLoader.load(paredeTextura);
-
-    // Ajustar propriedades da textura para melhorar a qualidade
     wallTexture.minFilter = THREE.LinearFilter;
     wallTexture.magFilter = THREE.LinearFilter;
     wallTexture.wrapS = THREE.RepeatWrapping;
     wallTexture.wrapT = THREE.RepeatWrapping;
-
-    // Criar o material com a textura
     const wallMaterial = new THREE.MeshBasicMaterial({ map: wallTexture });
-
     const wall = new THREE.Mesh(wallGeometry, wallMaterial);
     wall.position.set(x, y + height / 2, z);
     return wall;
   }
 
   useEffect(() => {
+    socket.on('connect', () => {
+      setIsConnected(true);
+    });
+
+    socket.on('disconnect', () => {
+      setIsConnected(false);
+    });
+
+    socket.on('move', (data: { id: string, x: number, y: number, z: number }) => {
+      setPlayers(prevPlayers => ({
+        ...prevPlayers,
+        [data.id]: { id: data.id, x: data.x, y: data.y, z: data.z }
+      }));
+    });
+
+    socket.on('newPlayer', (data: Player) => {
+      setPlayers(prevPlayers => ({
+        ...prevPlayers,
+        [data.id]: data
+      }));
+    });
+
+    socket.on('playerDisconnected', (id: string) => {
+      setPlayers(prevPlayers => {
+        const { [id]: _, ...rest } = prevPlayers;
+        return rest;
+      });
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isConnected) return;
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, 1000 / 555, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer();
     const container = document.getElementById('mundo-3d');
-
-    const wallHeight = 5;
-    const wallThickness = 1;
 
     if (container) {
       container.innerHTML = '';
@@ -84,37 +125,36 @@ export function Mundo3D() {
         scene.add(ground);
       });
 
-      // Adicionando as paredes com a textura
       scene.add(createWall({
         width: worldBounds.xMax - worldBounds.xMin,
-        height: wallHeight,
-        depth: wallThickness,
+        height: 5,
+        depth: 1,
         x: (worldBounds.xMin + worldBounds.xMax) / 2,
-        y: -2, // Altura do chão
-        z: worldBounds.zMin - wallThickness / 2
+        y: -2,
+        z: worldBounds.zMin - 1 / 2
       }));
       scene.add(createWall({
         width: worldBounds.xMax - worldBounds.xMin,
-        height: wallHeight,
-        depth: wallThickness,
+        height: 5,
+        depth: 1,
         x: (worldBounds.xMin + worldBounds.xMax) / 2,
-        y: -2, // Altura do chão
-        z: worldBounds.zMax + wallThickness / 2
+        y: -2,
+        z: worldBounds.zMax + 1 / 2
       }));
       scene.add(createWall({
-        width: wallThickness,
-        height: wallHeight,
+        width: 1,
+        height: 5,
         depth: worldBounds.zMax - worldBounds.zMin,
-        x: worldBounds.xMin - wallThickness / 2,
-        y: -2, // Altura do chão
+        x: worldBounds.xMin - 1 / 2,
+        y: -2,
         z: (worldBounds.zMin + worldBounds.zMax) / 2
       }));
       scene.add(createWall({
-        width: wallThickness,
-        height: wallHeight,
+        width: 1,
+        height: 5,
         depth: worldBounds.zMax - worldBounds.zMin,
-        x: worldBounds.xMax + wallThickness / 2,
-        y: -2, // Altura do chão
+        x: worldBounds.xMax + 1 / 2,
+        y: -2,
         z: (worldBounds.zMin + worldBounds.zMax) / 2
       }));
 
@@ -156,30 +196,34 @@ export function Mundo3D() {
 
             // Física e pular
             if (keys.current['Space'] && (jumps.current < maxJumps || isGrounded.current)) {
-              velocity.current.y = jumpSpeed; // Aplica força de pulo
-              keys.current['Space'] = false; // Evita múltiplos pulos
+              velocity.current.y = jumpSpeed;
+              keys.current['Space'] = false;
               jumps.current++;
-              isGrounded.current = false; // O jogador não está mais no chão
+              isGrounded.current = false;
             }
 
-            velocity.current.y -= gravity; // Aplica gravidade
+            velocity.current.y -= gravity;
 
-            // Atualiza posição da câmera
             camera.position.add(velocity.current);
 
-            // Simula colisão com o chão
-            if (camera.position.y < 2) { // Ajuste para a altura correta
+            if (camera.position.y < 2) {
               camera.position.y = 2;
               velocity.current.y = 0;
               if (!isGrounded.current) {
-                jumps.current = 0; // Reinicia o contador de pulos ao tocar o chão
-                isGrounded.current = true; // O jogador está no chão
+                jumps.current = 0;
+                isGrounded.current = true;
               }
             }
 
-            // Limite do mundo
             camera.position.x = Math.max(worldBounds.xMin, Math.min(camera.position.x, worldBounds.xMax));
             camera.position.z = Math.max(worldBounds.zMin, Math.min(camera.position.z, worldBounds.zMax));
+
+            // Enviar a posição do jogador para o servidor
+            socket.emit('move', {
+              x: camera.position.x,
+              y: camera.position.y,
+              z: camera.position.z
+            });
           }
         }
 
@@ -194,7 +238,11 @@ export function Mundo3D() {
         renderer.dispose();
       };
     }
-  }, []);
+  }, [isConnected]);
+
+  if (!isConnected) {
+    return <div>Conectando ao servidor...</div>;
+  }
 
   return <div id="mundo-3d"></div>;
 }
