@@ -1,4 +1,4 @@
-import { PrimeiroGame } from "../../../Jogos/jogo1";
+import { MenuGame2 } from '../../../Jogos/jogo2/menuGame2';
 import './style.scss';
 
 export function JogosPage() {
@@ -6,7 +6,7 @@ export function JogosPage() {
         <div className="container-JogosPage">
             <h3>Jogo 1</h3>
 
-            <PrimeiroGame />
+            <MenuGame2 />
         </div>
     )
 }
