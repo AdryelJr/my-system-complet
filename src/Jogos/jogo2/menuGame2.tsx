@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import { Game2 } from './Game2';
 import { useAuth } from '../../hooks/useAuth';
 
-const socket = io('http://localhost:3000');
+const socket = io('https://servidor-my-system.vercel.app/');
 
 export function MenuGame2() {
     const [rooms, setRooms] = useState<string[]>([]);
