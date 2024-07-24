@@ -1,29 +1,22 @@
-// MenuGame2.tsx
 import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
-import { Game2 } from './Game2';
 import { useAuth } from '../../hooks/useAuth';
+import { Game2 } from './Game2';
 
-const socket = io('https://servidor-my-system.vercel.app/');
+const socket = io('http://localhost:3000');
 
 export function MenuGame2() {
     const [rooms, setRooms] = useState<string[]>([]);
     const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
-    const { user } = useAuth(); // Obtenha o usuário autenticado
+    const { user } = useAuth();
 
     useEffect(() => {
         const handleUpdateRooms = (rooms: string[]) => {
             console.log('Salas recebidas:', rooms);
             setRooms(rooms);
         };
-
-        // Ouve atualizações de salas
         socket.on('updateRooms', handleUpdateRooms);
-
-        // Solicita a lista de salas quando o componente é montado
         socket.emit('getRooms');
-
-        // Limpeza do socket ao desmontar o componente
         return () => {
             socket.off('updateRooms', handleUpdateRooms);
         };
@@ -31,15 +24,11 @@ export function MenuGame2() {
 
     const handleJoinRoom = (room: string) => {
         setSelectedRoom(room);
-        if (user && user.name) {
-            socket.emit('joinRoom', room, user.name);
-        } else {
-            console.error('Usuário não autenticado');
-        }
+        socket.emit('joinRoom', room, user?.name);
     };
 
     if (selectedRoom) {
-        return <Game2 roomName={selectedRoom} />;
+        return <Game2 roomName={selectedRoom} playerName={user?.name} />;
     }
 
     return (
